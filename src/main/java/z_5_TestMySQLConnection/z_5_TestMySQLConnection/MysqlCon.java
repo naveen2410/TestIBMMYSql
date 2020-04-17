@@ -20,7 +20,7 @@ public class MysqlCon {
 				result = rs.getString(2);  
 			con.close();  
 		}catch(Exception e){ 
-			result = e.getMessage();
+			result = e.getStackTrace().toString();
 			}  
 		
 		return result;
