@@ -28,6 +28,6 @@ public class HomeController {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String ipaddress() throws Exception {
-        return "Reply: " + System.getenv("OPENSHIFT_MYSQL_DB_HOST");//new MysqlCon().dbConn();
+        return "Reply: " + new MysqlCon().dbConn();
     }
 }
