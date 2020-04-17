@@ -12,7 +12,7 @@ public class MysqlCon {
 		try{  
 			Class.forName("com.mysql.jdbc.Driver");  
 			Connection con=DriverManager.getConnection(  
-					"jdbc:mysql://10.254.8.213:3306/mysql","root","WHbQPe3gSietbBSK");  
+					"jdbc:mysql://localhost:3306/mysql","root","WHbQPe3gSietbBSK");  
 			//here sonoo is database name, root is username and password  
 			Statement stmt=con.createStatement();  
 			ResultSet rs=stmt.executeQuery("select database()");  
