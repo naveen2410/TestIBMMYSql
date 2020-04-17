@@ -10,9 +10,10 @@ public class MysqlCon {
 	public String dbConn(){  
 		String result = "";
 		try{  
-			Class.forName("com.mysql.jdbc.Driver");  
+			Class.forName("com.mysql.jdbc.Driver"); 
+			//DriverManager.get
 			Connection con=DriverManager.getConnection(  
-					"jdbc:mysql://mysql:3306/sampledb?user=user3LU&password=5tnFAhbu6XR6KwmA");  
+					"jdbc:mysql://mysql:3306/sampledb?user=root&password=WHbQPe3gSietbBSK&useSSL=false");  
 			//here sonoo is database name, root is username and password  
 			Statement stmt=con.createStatement();  
 			ResultSet rs=stmt.executeQuery("select database()");  
