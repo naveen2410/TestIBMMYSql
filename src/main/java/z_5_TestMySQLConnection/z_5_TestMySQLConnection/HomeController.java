@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import java.sql.*;
 
 @RestController
 public class HomeController {
@@ -28,6 +29,26 @@ public class HomeController {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String ipaddress() throws Exception {
-        return "Reply: " + new MysqlCon().dbConn();
+    	String result="";
+    	try{  
+    		//Class.forName("com.mysql.jdbc.Driver"); 
+    		Class.forName("com.mysql.cj.jdbc.Driver");
+			//DriverManager.get
+			Connection con=DriverManager.getConnection(  
+					"jdbc:mysql://mysql:3306/sampledb?user=root&password=WHbQPe3gSietbBSK&useSSL=false");  
+			//here sonoo is database name, root is username and password  
+			Statement stmt=con.createStatement();  
+			ResultSet rs=stmt.executeQuery("SELECT * FROM `demo`");  
+			while(rs.next()){  
+				result = rs.getString(2);
+			}
+			con.close();
+			return result;
+    		}catch(Exception e){
+    			//System.out.println(e);
+    			return e.toString();
+    		}  
+    		 
+    		
     }
 }
