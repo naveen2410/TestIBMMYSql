@@ -34,8 +34,9 @@ public class HomeController {
     		//Class.forName("com.mysql.jdbc.Driver"); 
     		Class.forName("com.mysql.cj.jdbc.Driver");
 			//DriverManager.get
-			Connection con=DriverManager.getConnection(  
-					"jdbc:mysql://mysql:3306/sampledb?user=root&password=hDgjFKdKO8avDhBt&useSSL=false");  
+			Connection con=DriverManager.getConnection(
+					"jdbc:mysql://mysql1234:3306/sampledb1234?user=root&password=G2WBtaWijqhexqYJ&useSSL=false");
+					//"jdbc:mysql://mysql:3306/sampledb?user=root&password=hDgjFKdKO8avDhBt&useSSL=false");  
 			//here sonoo is database name, root is username and password  
 			Statement stmt=con.createStatement();  
 			ResultSet rs=stmt.executeQuery("SELECT * FROM `demo`");  
