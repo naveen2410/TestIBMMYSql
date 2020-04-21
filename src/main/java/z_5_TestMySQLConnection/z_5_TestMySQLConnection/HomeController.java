@@ -51,8 +51,21 @@ public class HomeController {
 			return e.toString();
 		}  */
 
-
-		insertTableMIISch();
+		int i = 0;
+		Runnable periodicTask = new Runnable() {
+		    public void run() {
+		        // Invoke method(s) to do the work
+		    	try {
+					insertTableMIISch();
+					Thread.sleep(10000);
+				} catch (SQLException | InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+		    }
+		};
+		
+		
 		return "Finished";
 
 	}
