@@ -53,7 +53,8 @@ public class HomeController {
 
 
 		RunnableDemo R1 = new RunnableDemo( "Thread-1");
-		R1.start();
+		//R1.start();
+		R1.run();
 
 		return "Finished";
 
