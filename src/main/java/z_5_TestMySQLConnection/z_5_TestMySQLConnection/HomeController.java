@@ -52,54 +52,9 @@ public class HomeController {
 		}  */
 
 
-		RunnableDemo R1 = new RunnableDemo( "Thread-1");
-		//R1.start();
-		R1.run();
-		new RunnableDemo("gvjv").insertTableMIISch();
+		insertTableMIISch();
 		return "Finished";
 
-	}
-
-	/*@RequestMapping(value = "/update", method = RequestMethod.GET)
-	public void updateSchList() throws Exception {
-		RunnableDemo R1 = new RunnableDemo( "Thread-1");
-		R1.start();
-	}*/
-
-}
-
-
-
-class RunnableDemo implements Runnable {
-	private Thread t;
-	private String threadName;
-
-	RunnableDemo( String name) {
-		threadName = name;
-		System.out.println("Creating " +  threadName );
-	}
-
-	public void run() {
-
-		try {
-			for(int i = 0 ; i < 10 ; i ++) {
-				insertTableMIISch();
-				Thread.sleep(10000);
-			}
-			
-		} catch (SQLException | InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-	}
-
-	public void start () {
-		System.out.println("Starting " +  threadName );
-		if (t == null) {
-			t = new Thread (this, threadName);
-			t.start ();
-		}
 	}
 
 	public void insertTableMIISch() throws SQLException {
@@ -118,8 +73,11 @@ class RunnableDemo implements Runnable {
 		System.out.println("A new record is recorded successfully!");
 
 	}
-
 }
+
+
+
+
 
 
 
