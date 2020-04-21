@@ -55,7 +55,7 @@ public class HomeController {
 		RunnableDemo R1 = new RunnableDemo( "Thread-1");
 		//R1.start();
 		R1.run();
-
+		new RunnableDemo("gvjv").insertTableMIISch();
 		return "Finished";
 
 	}
