@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import java.sql.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 @RestController
 public class HomeController {
@@ -51,7 +53,7 @@ public class HomeController {
 			return e.toString();
 		}  */
 
-		int i = 0;
+		/*int i = 0;
 		Runnable periodicTask = new Runnable() {
 		    public void run() {
 		        // Invoke method(s) to do the work
@@ -65,12 +67,40 @@ public class HomeController {
 		    }
 		};
 		
+		*/
 		
+		ExecutorService executor = Executors.newFixedThreadPool(30);
+		Runnable worker = new MyRunnable(welcome);
+		executor.execute(worker);
+		executor.shutdown();
+		// Wait until all threads are finish
+		while (!executor.isTerminated()) {
+
+		}
 		return "Finished";
 
 	}
+	
+	public static class MyRunnable implements Runnable {
+		private final String url;
 
-	public void insertTableMIISch() throws SQLException {
+		MyRunnable(String url) {
+			this.url = url;
+		}
+
+
+		public void run() {
+			try {
+				insertTableMIISch();
+				Thread.sleep(10000);
+			} catch (SQLException | InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+
+	public static void insertTableMIISch() throws SQLException {
 
 		Connection databaseConnection= null;
 
