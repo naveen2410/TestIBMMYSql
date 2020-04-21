@@ -24,19 +24,20 @@ import java.sql.*;
 @RestController
 public class HomeController {
 
-    @Value("${welcome}")
-    private String welcome;
+	@Value("${welcome}")
+	private String welcome;
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String ipaddress() throws Exception {
-    	String result="";
-    	try{  
-    		//Class.forName("com.mysql.jdbc.Driver"); 
-    		Class.forName("com.mysql.cj.jdbc.Driver");
+	@RequestMapping(value = "/", method = RequestMethod.GET)
+	public String ipaddress() throws Exception {
+
+		/*String result="";
+		try{  
+			//Class.forName("com.mysql.jdbc.Driver"); 
+			Class.forName("com.mysql.cj.jdbc.Driver");
 			//DriverManager.get
 			Connection con=DriverManager.getConnection(
 					"jdbc:mysql://mysql1234:3306/sampledb1234?user=root&password=G2WBtaWijqhexqYJ&useSSL=false");
-					//"jdbc:mysql://mysql:3306/sampledb?user=root&password=hDgjFKdKO8avDhBt&useSSL=false");  
+			//"jdbc:mysql://mysql:3306/sampledb?user=root&password=hDgjFKdKO8avDhBt&useSSL=false");  
 			//here sonoo is database name, root is username and password  
 			Statement stmt=con.createStatement();  
 			ResultSet rs=stmt.executeQuery("SELECT * FROM `demo`");  
@@ -45,11 +46,79 @@ public class HomeController {
 			}
 			con.close();
 			return result;
-    		}catch(Exception e){
-    			//System.out.println(e);
-    			return e.toString();
-    		}  
-    		 
-    		
-    }
+		}catch(Exception e){
+			//System.out.println(e);
+			return e.toString();
+		}  */
+
+
+		RunnableDemo R1 = new RunnableDemo( "Thread-1");
+		R1.start();
+
+		return "Finished";
+
+	}
+
+	/*@RequestMapping(value = "/update", method = RequestMethod.GET)
+	public void updateSchList() throws Exception {
+		RunnableDemo R1 = new RunnableDemo( "Thread-1");
+		R1.start();
+	}*/
+
 }
+
+
+
+class RunnableDemo implements Runnable {
+	private Thread t;
+	private String threadName;
+
+	RunnableDemo( String name) {
+		threadName = name;
+		System.out.println("Creating " +  threadName );
+	}
+
+	public void run() {
+
+		try {
+			for(int i = 0 ; i < 10 ; i ++) {
+				insertTableMIISch();
+				Thread.sleep(10000);
+			}
+			
+		} catch (SQLException | InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
+	public void start () {
+		System.out.println("Starting " +  threadName );
+		if (t == null) {
+			t = new Thread (this, threadName);
+			t.start ();
+		}
+	}
+
+	public void insertTableMIISch() throws SQLException {
+
+		Connection databaseConnection= null;
+
+		//Connect to the database
+		databaseConnection = DriverManager.getConnection("jdbc:mysql://mysql:3306/sampledb?user=root&password=hDgjFKdKO8avDhBt&useSSL=false");
+
+		Statement stmt = databaseConnection.createStatement();
+
+		String sql = "INSERT demo VALUES ('a"+Math.random()+"','b"+Math.random()+"')";
+
+		stmt.execute(sql);
+
+		System.out.println("A new record is recorded successfully!");
+
+	}
+
+}
+
+
+
