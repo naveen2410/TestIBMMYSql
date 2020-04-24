@@ -23,51 +23,18 @@ import java.sql.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import javax.annotation.PostConstruct;
+
 @RestController
 public class HomeController {
 
-	@Value("${welcome}")
+	/*@Value("${welcome}")
 	private String welcome;
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String ipaddress() throws Exception {
 
-		/*String result="";
-		try{  
-			//Class.forName("com.mysql.jdbc.Driver"); 
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			//DriverManager.get
-			Connection con=DriverManager.getConnection(
-					"jdbc:mysql://mysql1234:3306/sampledb1234?user=root&password=G2WBtaWijqhexqYJ&useSSL=false");
-			//"jdbc:mysql://mysql:3306/sampledb?user=root&password=hDgjFKdKO8avDhBt&useSSL=false");  
-			//here sonoo is database name, root is username and password  
-			Statement stmt=con.createStatement();  
-			ResultSet rs=stmt.executeQuery("SELECT * FROM `demo`");  
-			while(rs.next()){  
-				result = rs.getString(2);
-			}
-			con.close();
-			return result;
-		}catch(Exception e){
-			//System.out.println(e);
-			return e.toString();
-		}  */
-
-		/*int i = 0;
-		Runnable periodicTask = new Runnable() {
-		    public void run() {
-		        // Invoke method(s) to do the work
-		    	try {
-					insertTableMIISch();
-					Thread.sleep(10000);
-				} catch (SQLException | InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-		    }
-		};
 		
-		*/
 		
 		ExecutorService executor = Executors.newFixedThreadPool(30);
 		Runnable worker = new MyRunnable(welcome);
@@ -115,7 +82,24 @@ public class HomeController {
 
 		System.out.println("A new record is recorded successfully!");
 
-	}
+	}*/
+	
+	 @PostConstruct
+	    public void init() throws Exception {
+		 
+		 Connection databaseConnection= null;
+
+			//Connect to the database
+			databaseConnection = DriverManager.getConnection("jdbc:mysql://mysql:3306/sampledb?user=root&password=hDgjFKdKO8avDhBt&useSSL=false");
+
+			Statement stmt = databaseConnection.createStatement();
+
+			String sql = "INSERT demo VALUES ('a"+Math.random()+"','b"+Math.random()+"')";
+
+			stmt.execute(sql);
+
+			System.out.println("A new record is recorded successfully!");
+	 }
 }
 
 
